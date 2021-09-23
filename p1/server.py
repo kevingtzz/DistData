@@ -21,29 +21,20 @@ def handleConecction(client):
 
 
 def checkStatus(options):
-	if options[0] == constants.HELLO:
-		#createBucket(options[1])
-	elif options[0] == constants.PUT:
-		#createFile(options[1], options[2])
-	elif options[0] == constants.GET:
-		getKeyList(options[1])
-	elif options[0] == constants.UPDATE:
-		#deleteFile(options[1], options[2])
-	elif options[0] == constants.DELETE:
-		#downloadFile(options[1], options[2])
+	key = options[0]
+	#host, port = getNode(key)
+	#TO DO connect to node and send data
+	#sendToNode(host, port)
 
 
-
-
-def getKeyList(bucketName):
-	fileList = os.listdir(os.path.join(test_db, bucketName))
-	if len(fileList) > 0:
-		strList = '\n'.join([str(e) for e in fileList])
-	else:
-		strList = "Empty bucket."
-	client.send(strList.encode('ascii'))
-
-
+def sendToNode(options, host, port):
+	clientSocket = socket.socket()
+	clientSocket.connect((host, port))
+	print("Connected to node")
+	clientSocket.send(bytes(informationToSend, constants.ENCODING_FORMAT))
+	response = clientSocket.recv(constants.BUFFER_SIZE)
+	print(response.decode())
+	clientSocket.close()
 
 try:
 	server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -68,4 +59,3 @@ try:
 except Exception as error:
 	print("Server error")
 	print(error)
-

@@ -26,9 +26,7 @@ def runClientSocket():
         #Client command
         command = input("Enter the command you want to send >> ")
         informationToSend = ""
-        if command == constants.HELLO or command == constants.LIST_BUCKET:
-            informationToSend = command
-        elif command == constants.PUT:
+        if command == constants.PUT:
             key = input("Enter the key >> ")
             value = input("Enter the value >> ")
             informationToSend = command+","+key+","+value
@@ -42,8 +40,7 @@ def runClientSocket():
             informationToSend = command+","+key+","+currentValue+","+newValue
         elif(command == constants.DELETE):
             key = input("Enter the key >> ")
-            value = input("Enter the value >> ")
-            informationToSend = command+","+key+","+value
+            informationToSend = command+","+key
         elif(command == constants.EXIT):
             break
         else:
