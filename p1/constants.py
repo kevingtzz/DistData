@@ -3,6 +3,7 @@ August 1, 2021
 Created by: Sebastian Loaiza Correa
 """
 
+ADDRESSTOSAVE= "C:/UNIVERSITY/ST0246-TopicosTelematica-CristianCeballos/Lab1/data/archivo.txt"
 SERVER_ADDRESS = "18.208.197.194"
 NODE1_IP = ""
 NODE2_IP = ""

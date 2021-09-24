@@ -52,8 +52,6 @@ def getNode(key):
 	else:
 		return "0",0
 
-
-
 def checkStatus(options):
 	key = options[0]
 	host, port = getNode(key)
