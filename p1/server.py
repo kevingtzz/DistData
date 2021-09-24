@@ -15,10 +15,10 @@ from _thread import *
 
 minusculas = string.ascii_lowercase   # O si prefieres pones "abcde...z" que es lo mismo
 nodes = {
-	"node1": ("127.0.0.1", 8050),
-	"node2": ("127.0.0.1", 8050),
-	"node3": ("127.0.0.1", 8050),
-	"node4": ("127.0.0.1", 8050)
+	"node1": (constants.NODE1_IP, constants.PORT),
+	"node2": (constants.NODE2_IP, constants.PORT),
+	"node3": (constants.NODE3_IP, constants.PORT),
+	"node4": (constants.NODE4_IP, constants.PORT)
 }
 
 
@@ -73,7 +73,7 @@ def sendToNode(options, host, port):
 
 try:
 	server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	server.bind(("172.31.1.2", constants.PORT))
+	server.bind(("0.0.0.0", constants.PORT))
 	server.listen(5)
 	threadCount = 0
 	print("SERVER UP!\nlistening...")

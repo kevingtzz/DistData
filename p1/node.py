@@ -49,7 +49,7 @@ def get(key):
 
 try:
 	server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	server.bind(("172.31.1.2", constants.PORT))
+	server.bind(("0.0.0.0", constants.PORT))
 	server.listen(5)
 	threadCount = 0
 	print("NODE UP!\nlistening...")
