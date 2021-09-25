@@ -20,6 +20,7 @@ nombre_archivo= '/home/database.txt'
 data = dict()
 
 def handleConecction(client):
+	data = callData(nombre_archivo)
 	while True:
 		request = client.recv(constants.BUFFER_SIZE).decode('ascii')
 		options = request.split(',')
@@ -67,6 +68,7 @@ def put(key, value):
         data[key] = list
     msg = key + ": " + value + " saved"
     client.send(msg.encode('ascii'))
+	saveData(nombre_archivo, data)
 
 def get(key):
     if key in data.keys():
@@ -89,11 +91,13 @@ def update(key, current, new):
 		client.send('Update action finished'.encode('ascii'))
 	else:
 		client.send('key not found'.encode('ascii'))
+	saveData(nombre_archivo, data)
 
 def delete(key):
 	remove_key = data.pop(key, "None")
 	msg = ','.join(remove_key) + ' deleted'
 	client.send(msg.encode('ascii'))
+	saveData(nombre_archivo, data)
 
 try:
 	server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
