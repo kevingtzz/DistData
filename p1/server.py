@@ -6,10 +6,7 @@ Created by: Sebastian Loaiza Correa
 
 
 import socket
-import os
 import constants
-import shutil
-import sys
 import string
 from _thread import *
 
