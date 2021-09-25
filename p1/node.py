@@ -91,7 +91,7 @@ def update(key, current, new):
 		client.send('key not found'.encode('ascii'))
 
 def delete(key):
-	remove_key = data.pop("in_stock", "None")
+	remove_key = data.pop(key, "None")
 	msg = remove_key + ' deleted'
 	client.send(msg.encode('ascii'))
 
