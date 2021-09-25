@@ -1,27 +1,22 @@
 #!/usr/bin/env python
 """
 August 1, 2021
-Created by: Sebastian Loaiza Correa
+Created by: Sebastian Loaiza Correa, Kevin Gutierrez, Cristian Ceballos
 """
 
 
 import socket
-import os
 import constants
-import shutil
-import sys
 from _thread import *
+import json
 
-import pickle
-
-nombre_archivo= '/home/database.txt'
 #dataToSave = [("Negro", 1, "7:06"), ("Anaconda", 32, "6:3")]
 
 data = dict()
 
 def handleConecction(client):
 	try:
-		data = callData(nombre_archivo)
+		data = callData(constants.FILENAME)
 	except:
 		print('holi')
 	while True:
@@ -45,20 +40,20 @@ saveData(nombre_archivo, dataToSave):
 	nombre_archivo -> Name of the file (with the address)
 	dataToSave -> could be the options (is the data that we going to save early)
 """
-def saveData(nombre_archivo, dataToSave):
-    archivo = open(nombre_archivo, "wb")
-    pickle.dump(dataToSave, archivo)
-    archivo.close()
+def saveData(fileName, dataToSave):
+    file = open(fileName, "w")
+    json.dump(dataToSave, file)
+    file.close()
 
 """
 callData(nombre_archivo)
 	nombre_archivo -> Call the file (same address)
 	Use the pickle library to unicode the data saved and return it
 """
-def callData(nombre_archivo):
-    archivo = open(nombre_archivo, "rb")
-    dataToSave = pickle.load(archivo)
-    archivo.close()
+def callData(fileName):
+    file = open(fileName, "r")
+    dataToSave = file.read()
+    file.close()
     return dataToSave
 
 
@@ -71,7 +66,7 @@ def put(key, value):
         data[key] = list
     msg = key + ": " + value + " saved"
     client.send(msg.encode('ascii'))
-    saveData(nombre_archivo, data)
+    saveData(constants.FILENAME, data)
 
 def get(key):
     if key in data.keys():
@@ -94,13 +89,13 @@ def update(key, current, new):
 		client.send('Update action finished'.encode('ascii'))
 	else:
 		client.send('key not found'.encode('ascii'))
-	saveData(nombre_archivo, data)
+	saveData(constants.FILENAME, data)
 
 def delete(key):
 	remove_key = data.pop(key, "None")
 	msg = ','.join(remove_key) + ' deleted'
 	client.send(msg.encode('ascii'))
-	saveData(nombre_archivo, data)
+	saveData(constants.FILENAME, data)
 
 try:
 	server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

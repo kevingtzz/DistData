@@ -1,17 +1,18 @@
-## **LAB 1:** Protocolo de comunicación cliente - servidor mediante programación en sockets
+## **Proyecto 1:** 
 
 **Descripción:**
-Esta aplicación que utiliza la programación en sockets TCP para establecer una comunicación entre un cliente y un servidor funciona como un sistema de buckets en el cual desde el cliente se permiten realizar las acciones basicas para el almacenamiento de archivos por medio de comandos
+Esta aplicación se compone de tres partes, un cliente que se encarga de solicitar las peticiones, un servidor que las recibe, procesa y decide a que nodo almacenar el dato, y un conjunto de nodos que almancenan los datos.
+
+La comunicación entre todos los procesos se hace medianto sockets TCP.
 
 **Lista de comandos**
 
- 1. LIST_BUCKET: ver lista de buckets disponibles
- 2. NEW_BUCKET: crear nuevo bucket
- 3. DELETE_BUCKET: eliminar bucket
- 4. UPLOAD_FILE: subir un nuevo archivo
- 5. LIST_FILE: listar los archivos de un bucket especifico
- 6. DOWNLOAD_FILE: descargar un archivo
- 7. DELETE_FILE: eliminar un archivo
+ Cuando se inicializa la aplicación lo primero en solicitar es el comando a usar, acontuación verás la lista de comandos disponible.
+
+ 1. PUT: Se usa para agregar un nuevo dato. (Al ingresar este comando se le solicitarán 2 parametros; key (palabra clave, ej: rojo), value (valor del dato, ej: manzana))
+ 2. GET: Se usa para recuperar un dato. (Al ingresar este comando se le solicitará el argumento key, este comando retornará todos los datos asociados al key ingresado)
+ 3. UPDATE: Se usa para modificar un dato. (Al ingresar este comando se le solicitarán 3 argumentos, el key, el valor que desea editar y el nuevo valor que desea que tenga)
+ 4. DELETE: Se usa para eliminar un dato. (Al ingresar este comando se le solicitará 1 argumento que será el key; tenga en cuenta que serán eliminados todos los datos asociados a la key ingresada)
 
 	**Nota:** En esta version, ninguno de los anteriores comando recibe ningun tipo de argumento, la información necesaria para realizar las acciones requeridas sera solicitada luego de ingresar el comando
 
