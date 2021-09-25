@@ -31,10 +31,10 @@ def checkStatus(options):
 		put(options[1], options[2])
 	elif options[0] == constants.GET:
 		get(options[1])
-#	elif options[0] == constants.UPDATE:
-#		getFileList(options[1])
-#	elif options[0] == constants.DELETE:
-#		deleteFile(options[1], options[2])
+	elif options[0] == constants.UPDATE:
+		update(options[1], options[2], options[3])
+	elif options[0] == constants.DELETE:
+		delete(options[1])
 
 """
 saveData(nombre_archivo, dataToSave):
@@ -74,6 +74,26 @@ def get(key):
         client.send(list.encode('ascii'))
     else:
         client.send('key not found'.encode('ascii'))
+
+def update(key, current, new):
+	if key in data.keys():
+		list = data[key]
+		index = -1
+		try:
+			index = list.index(current)
+		except:
+			client.send('Current value not found in key'.encode('ascii'))
+		if index > -1:
+			list[index] = new
+		data[key] = list
+		client.send('Update action finished'.encode('ascii'))
+	else:
+		client.send('key not found'.encode('ascii'))
+
+def delete(key):
+	remove_key = data.pop("in_stock", "None")
+	msg = remove_key + ' deleted'
+	client.send(msg.encode('ascii'))
 
 try:
 	server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
