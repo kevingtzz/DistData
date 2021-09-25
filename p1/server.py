@@ -14,6 +14,7 @@ import string
 from _thread import *
 
 minusculas = string.ascii_lowercase   # O si prefieres pones "abcde...z" que es lo mismo
+
 nodes = {
 	"node1": (constants.NODE1_IP, constants.PORT),
 	"node2": (constants.NODE2_IP, constants.PORT),
@@ -53,17 +54,17 @@ def getNode(key):
 		return "0",0
 
 def checkStatus(options):
-	key = options[0]
-	host, port = getNode(key)
+	key = options[1]
+	host, port = getNode(key.lower())
 	#TO DO connect to node and send data
-	sendToNode(host, port)
+	sendToNode(','.join(options), host, port)
 
 
 def sendToNode(options, host, port):
 	clientSocket = socket.socket()
 	clientSocket.connect((host, port))
 	print("Connected to node " + host)
-	clientSocket.send(bytes(informationToSend, constants.ENCODING_FORMAT))
+	clientSocket.send(bytes(options, constants.ENCODING_FORMAT))
 	response = clientSocket.recv(constants.BUFFER_SIZE)
 	print(response.decode())
 	client.send(response)
