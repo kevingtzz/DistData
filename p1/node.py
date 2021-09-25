@@ -14,32 +14,32 @@ from _thread import *
 
 import pickle
 
-nombre_archivo=constants.ADDRESSTOSAVE
+nombre_archivo= '/home/db/database.txt'
 #dataToSave = [("Negro", 1, "7:06"), ("Anaconda", 32, "6:3")]
 
 data = dict()
 
 def handleConecction(client):
-    	while True:
-    		request = client.recv(constants.BUFFER_SIZE).decode('ascii')
-			options = request.split(',')
-			checkStatus(options)
+	while True:
+		request = client.recv(constants.BUFFER_SIZE).decode('ascii')
+		options = request.split(',')
+		checkStatus(options)
 
 
 def checkStatus(options):
-    if options[0] == constants.PUT:
-		createBucket(options[1])
+	if options[0] == constants.PUT:
+		put(options[1], options[2])
 	elif options[0] == constants.GET:
-    	get(options[1])
-	elif options[0] == constants.UPDATE:
-    	getFileList(options[1])
-	elif options[0] == constants.DELETE:
-    	deleteFile(options[1], options[2])
+		get(options[1])
+#	elif options[0] == constants.UPDATE:
+#		getFileList(options[1])
+#	elif options[0] == constants.DELETE:
+#		deleteFile(options[1], options[2])
 
 """
 saveData(nombre_archivo, dataToSave):
 	nombre_archivo -> Name of the file (with the address)
-	dataToSave -> could be the options (is the data that we going to save early) 
+	dataToSave -> could be the options (is the data that we going to save early)
 """
 def saveData(nombre_archivo, dataToSave):
     archivo = open(nombre_archivo, "wb")
@@ -49,7 +49,7 @@ def saveData(nombre_archivo, dataToSave):
 """
 callData(nombre_archivo)
 	nombre_archivo -> Call the file (same address)
-	Use the pickle library to unicode the data saved and return it 
+	Use the pickle library to unicode the data saved and return it
 """
 def callData(nombre_archivo):
     archivo = open(nombre_archivo, "rb")
@@ -60,14 +60,16 @@ def callData(nombre_archivo):
 
 def put(key, value):
     list = []
-    if data[key]:
+    if key in data.keys():
         list = data[key].append(value)
     else:
         list = [value]
     data[key] = list
+    msg = key + ": " + value + " saved"
+    client.send(msg.encode('ascii'))
 
 def get(key):
-    if data[key]:
+    if key in data.keys():
         list = '\n'.join(data[key])
         client.send(list.encode('ascii'))
     else:
