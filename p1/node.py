@@ -22,8 +22,8 @@ data = dict()
 def handleConecction(client):
     	while True:
     		request = client.recv(constants.BUFFER_SIZE).decode('ascii')
-		options = request.split(',')
-		checkStatus(options)
+			options = request.split(',')
+			checkStatus(options)
 
 
 def checkStatus(options):
