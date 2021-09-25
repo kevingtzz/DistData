@@ -14,7 +14,7 @@ from _thread import *
 
 import pickle
 
-nombre_archivo= '/home/db/database.txt'
+nombre_archivo= '/home/database.txt'
 #dataToSave = [("Negro", 1, "7:06"), ("Anaconda", 32, "6:3")]
 
 data = dict()
@@ -61,10 +61,10 @@ def callData(nombre_archivo):
 def put(key, value):
     list = []
     if key in data.keys():
-        list = data[key].append(value)
+        data[key].append(value)
     else:
         list = [value]
-    data[key] = list
+        data[key] = list
     msg = key + ": " + value + " saved"
     client.send(msg.encode('ascii'))
 
