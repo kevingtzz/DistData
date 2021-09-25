@@ -20,7 +20,10 @@ nombre_archivo= '/home/database.txt'
 data = dict()
 
 def handleConecction(client):
-	data = callData(nombre_archivo)
+	try:
+		data = callData(nombre_archivo)
+	except:
+		print('holi')
 	while True:
 		request = client.recv(constants.BUFFER_SIZE).decode('ascii')
 		options = request.split(',')
