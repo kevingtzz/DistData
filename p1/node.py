@@ -92,7 +92,7 @@ def update(key, current, new):
 
 def delete(key):
 	remove_key = data.pop(key, "None")
-	msg = remove_key + ' deleted'
+	msg = ','.join(remove_key) + ' deleted'
 	client.send(msg.encode('ascii'))
 
 try:
