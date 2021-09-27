@@ -12,13 +12,15 @@ import json
 
 #dataToSave = [("Negro", 1, "7:06"), ("Anaconda", 32, "6:3")]
 
-data = dict()
 
 def handleConecction(client):
+	global data
 	try:
 		data = json.loads(callData(constants.FILENAME))
+#	print(json.dump(data))
+		print(data)
 	except:
-		print('holi')
+		data = dict()
 	while True:
 		request = client.recv(constants.BUFFER_SIZE).decode('ascii')
 		options = request.split(',')
@@ -69,6 +71,7 @@ def put(key, value):
     saveData(constants.FILENAME, data)
 
 def get(key):
+    print(data)
     if key in data.keys():
         list = '\n'.join(data[key])
         client.send(list.encode('ascii'))
