@@ -16,7 +16,7 @@ data = dict()
 
 def handleConecction(client):
 	try:
-		data = callData(constants.FILENAME)
+		data = json.loads(callData(constants.FILENAME))
 	except:
 		print('holi')
 	while True:
